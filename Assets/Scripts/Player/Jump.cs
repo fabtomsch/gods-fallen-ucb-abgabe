@@ -22,6 +22,8 @@ public class Jump : MonoBehaviour
     public float TimeCounter;
     public float jumpTime;
     private bool isJumping;
+    [SerializeField] float glidingSpeed;
+    private float initialGravityscale;
 
 
 
@@ -39,11 +41,14 @@ public class Jump : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         pSDust = GameObject.Find("movingDust").GetComponent<ParticleSystem>();
         pSjumpDust = GameObject.Find("jumpDust").GetComponent<ParticleSystem>();
+        initialGravityscale = rb.gravityScale;
     }
 
     private void OnJump(InputValue value)
     {
         pSDust.Play();
+        
+       
 
         if (Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground) == true || Physics2D.OverlapCircle(feetPos.position, checkRadius, Traps) == true)
         {
@@ -76,6 +81,19 @@ public class Jump : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKey(KeyCode.Space) && rb.velocity.y <= 0)
+        {
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(rb.velocity.x, -glidingSpeed);
+        }
+        else
+        {
+            rb.gravityScale = initialGravityscale;
+        }
+
+
+
+
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
         {
 
