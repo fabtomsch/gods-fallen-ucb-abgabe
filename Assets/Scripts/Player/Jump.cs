@@ -24,6 +24,7 @@ public class Jump : MonoBehaviour
     private bool isJumping;
     [SerializeField] float glidingSpeed;
     private float initialGravityscale;
+    private bool firstGrounded;
 
 
 
@@ -53,12 +54,13 @@ public class Jump : MonoBehaviour
         if (Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground) == true || Physics2D.OverlapCircle(feetPos.position, checkRadius, Traps) == true)
         {
             grounded = true;
+            firstGrounded = true; 
             ResetJumpCounter();
             bottomSource.Play();
         }
 
        
-        if (value.isPressed && (countJump < 6))
+        if (value.isPressed && (countJump < 2) && firstGrounded == true)
         {
             isJumping = true;
             TimeCounter = jumpTime;
@@ -81,7 +83,8 @@ public class Jump : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space) && rb.velocity.y <= 0)
+        // Gliding 
+        if(Input.GetKey(KeyCode.Space) && rb.velocity.y <= 0 && firstGrounded == true)
         {
             rb.gravityScale = 0;
             rb.velocity = new Vector2(rb.velocity.x, -glidingSpeed);
@@ -94,7 +97,7 @@ public class Jump : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        if (Input.GetKey(KeyCode.Space) && isJumping == true && firstGrounded == true)
         {
 
             if (TimeCounter > 0)

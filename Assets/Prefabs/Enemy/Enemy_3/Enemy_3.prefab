@@ -246,3 +246,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 4
   anim: {fileID: 8336866516873321092}
+  spriteRenderer: {fileID: 3867466439349676497}
