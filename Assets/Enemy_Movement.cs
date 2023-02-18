@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class Enemy_Movement : MonoBehaviour
 {
- [SerializeField] float movementSpeed = 1f;
-    Rigidbody2D rb;
+    [SerializeField] private Collider2D TriggerCollider;
+    [SerializeField] private float Speedboost = 8f;
+    [SerializeField] public float movementSpeed = 1f;
+    private Rigidbody2D rb;
  
 
 
@@ -49,9 +51,16 @@ public class Enemy_Movement : MonoBehaviour
        
     }
 
- 
 
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            movementSpeed = Speedboost;
+        }
+     
+    }
 
 
 
