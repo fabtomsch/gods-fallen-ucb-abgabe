@@ -40,6 +40,7 @@ public class BulletColor : MonoBehaviour
             erde.SetActive(true);
             GetComponent<SpriteRenderer>().sprite = earth;
             
+      
            
 
         } else if (playerHeight > PlayerAnimations.hellDepth && playerHeight < PlayerAnimations.hellHeight)

@@ -5,6 +5,7 @@ using Cinemachine;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletMovement : MonoBehaviour
 {
@@ -12,7 +13,14 @@ public class BulletMovement : MonoBehaviour
     [SerializeField] private float projectileDmg;
     private Rigidbody2D rB;
     [SerializeField] private Transform player;
-    [SerializeField] private float moveSpeed = 100f;
+    [SerializeField] public float moveSpeed = 100f;
+    [SerializeField] private Sprite earth;
+    [SerializeField] private Sprite emptiness;
+    [SerializeField] private Sprite sky;
+    [SerializeField] private Sprite hell;
+    
+   public  PlayerAttack playerAttack;
+
 
     private void Start()
     {
@@ -24,6 +32,7 @@ public class BulletMovement : MonoBehaviour
         Vector3 startDir = (mousePosInWorld - transform.position).normalized;
         Vector2 velo = new Vector2(startDir.x, startDir.y).normalized;
         rB.velocity = velo * moveSpeed ;
+     
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -38,4 +47,24 @@ public class BulletMovement : MonoBehaviour
             Destroy(transform.gameObject);
         }
     }
+
+    private void Update()
+    {
+        float playerHeight = transform.position.y;
+        if (GetComponent<SpriteRenderer>().sprite == earth)
+        {
+            transform.localScale = new Vector3(.6f, .6f, .6f);
+            rB.velocity = rB.velocity.normalized * moveSpeed / 2.5f;
+           
+        }
+        if (playerHeight > PlayerAnimations.skyDepth && playerHeight < PlayerAnimations.skyHeigth && SceneManager.GetActiveScene().name != "EndBossScene")
+        {
+            transform.localScale = new Vector3(.45f, .45f, .1f);
+            rB.velocity = rB.velocity.normalized * moveSpeed / .5f;
+        }
+
+
+    }
+
+
 }

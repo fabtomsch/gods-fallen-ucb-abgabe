@@ -296,9 +296,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 1
+  m_FalloffIntensity: 0.822
   m_Color: {r: 0.5, g: 0, b: 0.034733295, a: 0.79607844}
-  m_Intensity: 0.5
+  m_Intensity: 0.7
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000352443deedaccf62
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 10
+  m_PointLightOuterRadius: 15
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -603,6 +603,11 @@ MonoBehaviour:
   projectileDmg: 1
   player: {fileID: 1699395106549929004, guid: 7864c5d2df5d44f42b079169548701aa, type: 3}
   moveSpeed: 20
+  earth: {fileID: 21300000, guid: bfdeecdc7f9ea684ea3884ad191901b5, type: 3}
+  emptiness: {fileID: 21300000, guid: f5e9b468c2b6fa24898120e2891c53bd, type: 3}
+  sky: {fileID: 21300000, guid: a98010f3aaaaa0543a7165baf70ace67, type: 3}
+  hell: {fileID: 21300000, guid: bff93c79bd857d2478a507343c2437f7, type: 3}
+  playerAttack: {fileID: 0}
 --- !u!61 &771489350813105265
 BoxCollider2D:
   m_ObjectHideFlags: 0

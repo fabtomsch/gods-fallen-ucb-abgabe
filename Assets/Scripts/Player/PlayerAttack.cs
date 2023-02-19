@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -15,20 +17,28 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackRate = 5f; //per Sek
     [SerializeField] private GameObject shootObject;
     [SerializeField] private Transform spawnLocation;
-    [SerializeField] private float timeBtwShoot = 0.5f;
+    [SerializeField] public float timeBtwShoot = 0.5f;
     [SerializeField] private float maxShootTime = 1.5f;
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] private AudioSource shootSource;
+
+
     private float timeBtwAttack;
     private float shootDelay;
     private float maxMultShoots;
 
     private bool downDir = false;
     // Update is called once per frame
+
+
+   
+
     void Update()
     {
         MoveWeapon();
-        
+
+    
+
         if (downDir)
         {
             if (shootDelay <= 0)
@@ -51,13 +61,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Time.time >= timeBtwAttack && !downDir && value.isPressed)
         {
+    
+
             downDir = true;
             maxMultShoots = maxShootTime;
             Shoot();
         }
         else if(downDir)
         {
-            timeBtwAttack = Time.time + 1f / attackRate;  
+          
+            timeBtwAttack = Time.time + 1f / attackRate;
             downDir = false;
         }
         
@@ -77,7 +90,18 @@ public class PlayerAttack : MonoBehaviour
     private void Shoot()
     {
         Instantiate(shootObject, spawnLocation.position, Quaternion.identity);
-        shootDelay = timeBtwShoot;
+
+        float playerHeight = transform.position.y;
+        if (playerHeight > PlayerAnimations.skyDepth && playerHeight < PlayerAnimations.skyHeigth && SceneManager.GetActiveScene().name != "EndBossScene")
+        {
+            shootDelay = 1f;
+        }
+        else
+        {
+            shootDelay = timeBtwShoot;
+        }
+
+       
         weaponAnimator.SetTrigger("Attack");
         shootSource.Play();
     }
