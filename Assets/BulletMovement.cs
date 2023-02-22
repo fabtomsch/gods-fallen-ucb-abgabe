@@ -40,12 +40,10 @@ public class BulletMovement : MonoBehaviour
         if (col.gameObject.tag == "Enemy")
         {
             col.gameObject.GetComponent<Enemy_Life>().takeLife(projectileDmg);
-        }
+           
 
-        if (col.gameObject.tag != "Player")
-        {
-            Destroy(transform.gameObject);
         }
+            Destroy(gameObject);
     }
 
     private void Update()
@@ -53,15 +51,17 @@ public class BulletMovement : MonoBehaviour
         float playerHeight = transform.position.y;
         if (GetComponent<SpriteRenderer>().sprite == earth)
         {
-            transform.localScale = new Vector3(.6f, .6f, .6f);
-            rB.velocity = rB.velocity.normalized * moveSpeed / 2.5f;
-           
+            transform.localScale = new Vector3(.7f, .7f, 1f);
+            rB.velocity = rB.velocity.normalized * moveSpeed / 3f;
+         
         }
-        if (playerHeight > PlayerAnimations.skyDepth && playerHeight < PlayerAnimations.skyHeigth && SceneManager.GetActiveScene().name != "EndBossScene")
+        else if (playerHeight > PlayerAnimations.skyDepth && playerHeight < PlayerAnimations.skyHeigth && SceneManager.GetActiveScene().name != "EndBossScene")
         {
             transform.localScale = new Vector3(.45f, .45f, .1f);
             rB.velocity = rB.velocity.normalized * moveSpeed / .5f;
         }
+
+   
 
 
     }

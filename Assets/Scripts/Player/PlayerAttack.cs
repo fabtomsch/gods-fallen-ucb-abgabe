@@ -94,8 +94,13 @@ public class PlayerAttack : MonoBehaviour
         float playerHeight = transform.position.y;
         if (playerHeight > PlayerAnimations.skyDepth && playerHeight < PlayerAnimations.skyHeigth && SceneManager.GetActiveScene().name != "EndBossScene")
         {
-            shootDelay = 1f;
+            shootDelay = .4f;
         }
+        else if (playerHeight > PlayerAnimations.earthDepth && playerHeight < PlayerAnimations.earthHeigth)
+        {
+            shootDelay = .6f;
+        }
+
         else
         {
             shootDelay = timeBtwShoot;
@@ -108,7 +113,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void EndDownWeapon()
     {
-        timeBtwAttack = Time.time + 1f / attackRate;  
+       
+        timeBtwAttack = Time.time + 1f / attackRate;
         downDir = false;
     }
 
