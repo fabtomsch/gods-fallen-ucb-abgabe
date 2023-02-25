@@ -11,7 +11,11 @@ public class ShowHighscore : MonoBehaviour
         if (PlayerPrefs.HasKey("Highscore") && score != null)
         {
             int time = (int) PlayerPrefs.GetFloat("Highscore");
-            score.SetText(time + " seconds");
+            if(time > 0)
+            {
+                score.SetText(time + " seconds");
+            }
+          
         }
     }
 }
